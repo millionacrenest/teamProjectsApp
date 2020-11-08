@@ -14,6 +14,12 @@
 		F3EE39F725585C680000B9B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3EE39F625585C680000B9B1 /* Assets.xcassets */; };
 		F3EE39FA25585C680000B9B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3EE39F825585C680000B9B1 /* LaunchScreen.storyboard */; };
 		F3EE3A0B255865630000B9B1 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A0A255865630000B9B1 /* SessionManager.swift */; };
+		F3EE3A10255868D20000B9B1 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A0F255868D20000B9B1 /* Team.swift */; };
+		F3EE3A16255869200000B9B1 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A15255869200000B9B1 /* Data.swift */; };
+		F3EE3A192558695D0000B9B1 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A182558695D0000B9B1 /* Attributes.swift */; };
+		F3EE3A1C2558698F0000B9B1 /* Relationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A1B2558698F0000B9B1 /* Relationships.swift */; };
+		F3EE3A1F255869E60000B9B1 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A1E255869E60000B9B1 /* UserData.swift */; };
+		F3EE3A2625586A290000B9B1 /* Included.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A2525586A290000B9B1 /* Included.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		F3EE39F925585C680000B9B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3EE39FB25585C680000B9B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3EE3A0A255865630000B9B1 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		F3EE3A0F255868D20000B9B1 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		F3EE3A15255869200000B9B1 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		F3EE3A182558695D0000B9B1 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		F3EE3A1B2558698F0000B9B1 /* Relationships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relationships.swift; sourceTree = "<group>"; };
+		F3EE3A1E255869E60000B9B1 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		F3EE3A2525586A290000B9B1 /* Included.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Included.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +78,7 @@
 				F3EE39F825585C680000B9B1 /* LaunchScreen.storyboard */,
 				F3EE39FB25585C680000B9B1 /* Info.plist */,
 				F3EE3A05255864DE0000B9B1 /* Services */,
+				F3EE3A13255868DC0000B9B1 /* Model */,
 			);
 			path = teamProjectsApp;
 			sourceTree = "<group>";
@@ -76,6 +89,19 @@
 				F3EE3A0A255865630000B9B1 /* SessionManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EE3A13255868DC0000B9B1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EE3A0F255868D20000B9B1 /* Team.swift */,
+				F3EE3A15255869200000B9B1 /* Data.swift */,
+				F3EE3A182558695D0000B9B1 /* Attributes.swift */,
+				F3EE3A1B2558698F0000B9B1 /* Relationships.swift */,
+				F3EE3A1E255869E60000B9B1 /* UserData.swift */,
+				F3EE3A2525586A290000B9B1 /* Included.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +175,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3EE39F225585C650000B9B1 /* ViewController.swift in Sources */,
+				F3EE3A16255869200000B9B1 /* Data.swift in Sources */,
 				F3EE39EE25585C650000B9B1 /* AppDelegate.swift in Sources */,
+				F3EE3A1C2558698F0000B9B1 /* Relationships.swift in Sources */,
 				F3EE3A0B255865630000B9B1 /* SessionManager.swift in Sources */,
+				F3EE3A10255868D20000B9B1 /* Team.swift in Sources */,
+				F3EE3A1F255869E60000B9B1 /* UserData.swift in Sources */,
+				F3EE3A2625586A290000B9B1 /* Included.swift in Sources */,
 				F3EE39F025585C650000B9B1 /* SceneDelegate.swift in Sources */,
+				F3EE3A192558695D0000B9B1 /* Attributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,7 +29,6 @@ class ViewController: UIViewController {
             
                     let task = session.dataTask(with: url, completionHandler: { data, response, error in
                         // Check the response
-                        print(response)
                         DispatchQueue.main.async {
                             self.activityIndicator.stopAnimating()
                         }
@@ -44,9 +43,9 @@ class ViewController: UIViewController {
                         
                         // Serialize the data into an object
                         do {
-                       //     let json = try JSONDecoder().decode([Post].self, from: data! )
-                                //try JSONSerialization.jsonObject(with: data!, options: [])
-                      //      print(json)
+                            let json = try JSONDecoder().decode(UserData.self, from: data! )
+                                try JSONSerialization.jsonObject(with: data!, options: [])
+                            print(json)
                         } catch {
                             print("Error during JSON serialization: \(error.localizedDescription)")
                         }

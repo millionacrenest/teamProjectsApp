@@ -14,15 +14,7 @@ class ViewController: UIViewController {
     
     private var userTeams = [Included]()
     
-    private var userProjects = [Data]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.tableView.reloadData()
-            }
-       }
-        
-    }
+    private var userProjects = [Data]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +51,10 @@ class ViewController: UIViewController {
                                         self.userProjects.append(data)
                                     }
                                 }
+                            }
+                            DispatchQueue.main.async {
+                                self.activityIndicator.stopAnimating()
+                                self.tableView.reloadData()
                             }
                             
                         } catch {
@@ -105,7 +101,19 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if section == 0 {
-            return userProjects.count
+            
+            let dateSortedProjects = userProjects.sorted {
+                $0.attributes?.updated_at ?? "" < $1.attributes?.updated_at ?? ""
+            }
+            
+            if dateSortedProjects.count < 6 {
+                return 0
+            } else if dateSortedProjects.count > 5 || dateSortedProjects.count < 11 {
+                return dateSortedProjects.count - 5
+            } else {
+                return 5
+            }
+            
         } else {
             let sectionTeam = userTeams[section - 1]
             let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
@@ -127,7 +135,11 @@ extension ViewController: UITableViewDataSource {
             cell.detailTextLabel?.isHidden = false
             let project = dateSortedProjects[indexPath.row]
             cell.textLabel?.text = project.attributes?.name
-            cell.detailTextLabel?.text = project.relationships?.team?.id
+            let projectTeam = userTeams.first(where: {
+                $0.id == project.relationships?.team?.id
+            })
+            
+            cell.detailTextLabel?.text = projectTeam?.attributes?.name
             
         } else {
             let sectionTeam = userTeams[indexPath.section - 1]

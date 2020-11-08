@@ -65,6 +65,13 @@ class ViewController: UIViewController {
         }
     }
     
+    func sortProjectsByUpdatedAt() -> [Data] {
+        let dateSortedProjects = userProjects.sorted {
+            $0.attributes?.updated_at ?? "" > $1.attributes?.updated_at ?? ""
+        }
+        return dateSortedProjects
+    }
+    
     
 
 
@@ -99,9 +106,7 @@ extension ViewController: UITableViewDataSource {
 
         if section == 0 {
             
-            let dateSortedProjects = userProjects.sorted {
-                $0.attributes?.updated_at ?? "" > $1.attributes?.updated_at ?? ""
-            }
+            let dateSortedProjects = sortProjectsByUpdatedAt()
             
             if dateSortedProjects.count < 6 {
                 return 0
@@ -125,9 +130,7 @@ extension ViewController: UITableViewDataSource {
         
         if indexPath.section == 0 {
            
-            let dateSortedProjects = userProjects.sorted {
-                $0.attributes?.updated_at ?? "" > $1.attributes?.updated_at ?? ""
-            }
+            let dateSortedProjects = sortProjectsByUpdatedAt()
             
             cell.detailTextLabel?.isHidden = false
             let project = dateSortedProjects[indexPath.row]

@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         activityIndicator.startAnimating()
         fetchUserData()
-        
     }
     
     func fetchUserData() {
@@ -103,7 +102,7 @@ extension ViewController: UITableViewDataSource {
         if section == 0 {
             
             let dateSortedProjects = userProjects.sorted {
-                $0.attributes?.updated_at ?? "" < $1.attributes?.updated_at ?? ""
+                $0.attributes?.updated_at ?? "" > $1.attributes?.updated_at ?? ""
             }
             
             if dateSortedProjects.count < 6 {
@@ -129,7 +128,7 @@ extension ViewController: UITableViewDataSource {
         if indexPath.section == 0 {
            
             let dateSortedProjects = userProjects.sorted {
-                $0.attributes?.updated_at ?? "" < $1.attributes?.updated_at ?? ""
+                $0.attributes?.updated_at ?? "" > $1.attributes?.updated_at ?? ""
             }
             
             cell.detailTextLabel?.isHidden = false

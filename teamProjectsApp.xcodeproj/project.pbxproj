@@ -13,6 +13,7 @@
 		F3EE39F525585C650000B9B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3EE39F325585C650000B9B1 /* Main.storyboard */; };
 		F3EE39F725585C680000B9B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3EE39F625585C680000B9B1 /* Assets.xcassets */; };
 		F3EE39FA25585C680000B9B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3EE39F825585C680000B9B1 /* LaunchScreen.storyboard */; };
+		F3EE3A0B255865630000B9B1 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EE3A0A255865630000B9B1 /* SessionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F3EE39F625585C680000B9B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3EE39F925585C680000B9B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3EE39FB25585C680000B9B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3EE3A0A255865630000B9B1 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +65,17 @@
 				F3EE39F625585C680000B9B1 /* Assets.xcassets */,
 				F3EE39F825585C680000B9B1 /* LaunchScreen.storyboard */,
 				F3EE39FB25585C680000B9B1 /* Info.plist */,
+				F3EE3A05255864DE0000B9B1 /* Services */,
 			);
 			path = teamProjectsApp;
+			sourceTree = "<group>";
+		};
+		F3EE3A05255864DE0000B9B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EE3A0A255865630000B9B1 /* SessionManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			files = (
 				F3EE39F225585C650000B9B1 /* ViewController.swift in Sources */,
 				F3EE39EE25585C650000B9B1 /* AppDelegate.swift in Sources */,
+				F3EE3A0B255865630000B9B1 /* SessionManager.swift in Sources */,
 				F3EE39F025585C650000B9B1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,11 +12,54 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         activityIndicator.startAnimating()
+        fetchUserData()
+        
+    }
+    
+    func fetchUserData() {
+        if let url = URL(string: "https://frameio-swift-exercise.herokuapp.com/projects?include=team") {
+            
+            let session = SessionManager.shared.session
+            
+                    let task = session.dataTask(with: url, completionHandler: { data, response, error in
+                        // Check the response
+                        print(response)
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                        }
+                        
+                        
+                        // Check if an error occured
+                        if error != nil {
+                            // HERE you can manage the error
+                            print(error)
+                            return
+                        }
+                        
+                        // Serialize the data into an object
+                        do {
+                       //     let json = try JSONDecoder().decode([Post].self, from: data! )
+                                //try JSONSerialization.jsonObject(with: data!, options: [])
+                      //      print(json)
+                        } catch {
+                            print("Error during JSON serialization: \(error.localizedDescription)")
+                        }
+                        
+                    })
+                    task.resume()
+            
+            
+            
+            
+            
+            
+        }
     }
 
 

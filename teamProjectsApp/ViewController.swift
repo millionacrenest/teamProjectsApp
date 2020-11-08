@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         activityIndicator.startAnimating()
         fetchUserData()
     }
@@ -28,41 +27,40 @@ class ViewController: UIViewController {
             
             let session = SessionManager.shared.session
             
-                    let task = session.dataTask(with: url, completionHandler: { data, response, error in
+                let task = session.dataTask(with: url, completionHandler: { data, response, error in
+                    
+                    if error != nil {
+                        print(error ?? "ERROR")
+                        return
+                    }
+                    
+                    // Serialize the data into an object
+                    do {
+                        let json = try JSONDecoder().decode(UserData.self, from: data! )
+                            try JSONSerialization.jsonObject(with: data!, options: [])
                         
-                        if error != nil {
-                            print(error ?? "ERROR")
-                            return
+                        if let userTeams = json.included {
+                            self.userTeams.append(contentsOf: userTeams)
                         }
                         
-                        // Serialize the data into an object
-                        do {
-                            let json = try JSONDecoder().decode(UserData.self, from: data! )
-                                try JSONSerialization.jsonObject(with: data!, options: [])
-                            
-                            if let userTeams = json.included {
-                                self.userTeams.append(contentsOf: userTeams)
-                            }
-                            
-                            if let displayData = json.data {
-                                for data in displayData {
-                                    if data.type == "projects" {
-                                        self.userProjects.append(data)
-                                    }
+                        if let displayData = json.data {
+                            for data in displayData {
+                                if data.type == "projects" {
+                                    self.userProjects.append(data)
                                 }
                             }
-                            DispatchQueue.main.async {
-                                self.activityIndicator.stopAnimating()
-                                self.tableView.reloadData()
-                            }
-                            
-                        } catch {
-                            print("Error during JSON serialization: \(error.localizedDescription)")
+                        }
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                            self.activityIndicator.stopAnimating()
                         }
                         
-                    })
-                    task.resume()
-            
+                    } catch {
+                        print("Error during JSON serialization: \(error.localizedDescription)")
+                    }
+                    
+                })
+                task.resume()
             
         }
     }
@@ -76,7 +74,7 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "RECENT"
+            return "Recent"
         } else {
             return userTeams[section - 1].attributes?.name
         }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Data: Codable, Equatable {
+class Data: Codable {
     let type: String?
     let id: String?
-    let attributes: Attributes?
+    var attributes: Attributes?
     let relationships: Relationships?
 }

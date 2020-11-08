@@ -12,13 +12,16 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    private var userTeams = [Team]() {
+    private var userTeams = [Included]()
+    
+    private var userProjects = [Data]() {
         didSet {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 self.tableView.reloadData()
             }
        }
+        
     }
     
     override func viewDidLoad() {
@@ -45,12 +48,16 @@ class ViewController: UIViewController {
                         do {
                             let json = try JSONDecoder().decode(UserData.self, from: data! )
                                 try JSONSerialization.jsonObject(with: data!, options: [])
+                            
+                            if let userTeams = json.included {
+                                self.userTeams.append(contentsOf: userTeams)
+                            }
+                            
                             if let displayData = json.data {
                                 for data in displayData {
-                                    if let relationships = data.relationships, let team = relationships.team {
-                                        if !self.userTeams.contains(team) {
-                                            self.userTeams.append(team)
-                                        }
+                                    if data.type == "projects" {
+                                        data.attributes?.formatProjectDate()
+                                        self.userProjects.append(data)
                                     }
                                 }
                             }
@@ -65,11 +72,22 @@ class ViewController: UIViewController {
             
         }
     }
+    
+    
 
 
 }
 
 extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "RECENT"
+        } else {
+            return userTeams[section - 1].attributes?.name
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -86,13 +104,48 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+
+        if section == 0 {
+            let recentProjects = userProjects.filter { $0.attributes?.date != nil }
+            let projectsSortedByDate = recentProjects.sorted { $0.attributes?.date ?? Date() < $1.attributes?.date ?? Date() }
+            return projectsSortedByDate.count
+        } else {
+            return userProjects.count
+            
+            
+//            let sectionTeam = userTeams[section - 1]
+//
+//            let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
+//
+//            return sectionProjects.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else { return UITableViewCell() }
-        cell.textLabel?.text = "TEST"
-        cell.detailTextLabel?.text = "testing"
+        
+        if indexPath.section == 0 {
+            
+            let recentProjects = userProjects.filter { $0.attributes?.date != nil }
+            let projectsSortedByDate = recentProjects.sorted { $0.attributes?.date ?? Date() < $1.attributes?.date ?? Date() }
+            let project = projectsSortedByDate[indexPath.row]
+            cell.textLabel?.text = project.attributes?.name
+            cell.detailTextLabel?.text = project.relationships?.team?.id
+            
+        } else {
+//            let sectionTeam = userTeams[indexPath.section + 1]
+//            
+//            let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
+//            
+            let project = userProjects[indexPath.row]
+            
+            cell.textLabel?.text = project.attributes?.name
+            cell.detailTextLabel?.isHidden = true
+            
+        }
+        
+        
         return cell
     }
     

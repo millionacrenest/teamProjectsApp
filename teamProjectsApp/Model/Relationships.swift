@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Relationships: Codable, Equatable {
+class Relationships: Codable {
     let team: Team?
 }

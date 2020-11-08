@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Included: Codable, Equatable {
+class Included: Codable {
     let attributes: Attributes?
     let type: String?
     let id: String?

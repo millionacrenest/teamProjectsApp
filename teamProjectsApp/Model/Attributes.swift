@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Attributes: Codable {
+struct Attributes: Codable, Equatable {
     let updated_at: String?
     let name: String?
 }

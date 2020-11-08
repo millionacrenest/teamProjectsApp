@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Team: Codable {
+struct Team: Codable, Equatable {
     let type: String?
     let id: String?
 }

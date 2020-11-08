@@ -56,7 +56,6 @@ class ViewController: UIViewController {
                             if let displayData = json.data {
                                 for data in displayData {
                                     if data.type == "projects" {
-                                        data.attributes?.formatProjectDate()
                                         self.userProjects.append(data)
                                     }
                                 }
@@ -106,18 +105,12 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if section == 0 {
-            let recentProjects = userProjects.filter { $0.attributes?.date != nil }
-            let projectsSortedByDate = recentProjects.sorted { $0.attributes?.date ?? Date() < $1.attributes?.date ?? Date() }
-            return projectsSortedByDate.count
-        } else {
             return userProjects.count
+        } else {
+            let sectionTeam = userTeams[section - 1]
+            let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
+            return sectionProjects.count
             
-            
-//            let sectionTeam = userTeams[section - 1]
-//
-//            let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
-//
-//            return sectionProjects.count
         }
         
     }
@@ -126,19 +119,20 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else { return UITableViewCell() }
         
         if indexPath.section == 0 {
+           
+            let dateSortedProjects = userProjects.sorted {
+                $0.attributes?.updated_at ?? "" < $1.attributes?.updated_at ?? ""
+            }
             
-            let recentProjects = userProjects.filter { $0.attributes?.date != nil }
-            let projectsSortedByDate = recentProjects.sorted { $0.attributes?.date ?? Date() < $1.attributes?.date ?? Date() }
-            let project = projectsSortedByDate[indexPath.row]
+            cell.detailTextLabel?.isHidden = false
+            let project = dateSortedProjects[indexPath.row]
             cell.textLabel?.text = project.attributes?.name
             cell.detailTextLabel?.text = project.relationships?.team?.id
             
         } else {
-//            let sectionTeam = userTeams[indexPath.section + 1]
-//            
-//            let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
-//            
-            let project = userProjects[indexPath.row]
+            let sectionTeam = userTeams[indexPath.section - 1]
+            let sectionProjects = userProjects.filter { $0.relationships?.team?.id == sectionTeam.id }
+            let project = sectionProjects[indexPath.row]
             
             cell.textLabel?.text = project.attributes?.name
             cell.detailTextLabel?.isHidden = true

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserData: Codable {
+struct UserData: Codable, Equatable {
     let included: [Included]?
-    var data: [Data]?
+    let data: [Data]?
 }
